@@ -3,23 +3,27 @@ package com.theveloper.stattrack
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.beust.klaxon.Parser
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.theveloper.stattrack.datamodel.OverwatchPlayer
 import com.theveloper.stattrack.datamodel.Team
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
 import kotlin.coroutines.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
     private val TAG = "MainActivity"
     private lateinit var queue:RequestQueue
     private lateinit var lolek: JSONObject
+    private lateinit var bottomNav: BottomNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +58,26 @@ class MainActivity : AppCompatActivity() {
                     "Post execution thread:"+Thread.currentThread().name)
                 Log.d(TAG, result)
         }
+
+        bottomNav = findViewById(R.id.bottom_nav)
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MatchesFragment()).commit()
+
+        bottomNav.setOnNavigationItemSelectedListener { menuItem ->
+            var selectedFragment: Fragment = MatchesFragment()
+            if(menuItem.itemId == R.id.nav_matches){
+                selectedFragment = MatchesFragment()
+            } else if(menuItem.itemId == R.id.nav_teams){
+                selectedFragment = TeamsFragment()
+            } else if(menuItem.itemId == R.id.nav_players){
+                selectedFragment = PlayersFragment()
+            }
+
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
+
+            true
+        }
+
+
 
 
 
