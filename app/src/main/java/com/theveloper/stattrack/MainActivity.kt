@@ -26,6 +26,7 @@ class MainActivity: AppCompatActivity() {
     private lateinit var bottomNav: BottomNavigationView
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,12 +39,12 @@ class MainActivity: AppCompatActivity() {
 //        }
 
         val owPlayers = listOf<OverwatchPlayer>(
-            OverwatchPlayer("Hiko", "pro player 10", "Windowmarker"),
-            OverwatchPlayer("U kiddin me?!", "LOL", "PE ER O ES TE O"),
-            OverwatchPlayer("WHAT?!", "OH MY GOD!", "INHUMAN REACTION!")
+            OverwatchPlayer("Hiko", "pro player 10", "Windowmarker", "PRo1"),
+            OverwatchPlayer("U kiddin me?!", "LOL", "PE ER O ES TE O", "Pro2"),
+            OverwatchPlayer("WHAT?!", "OH MY GOD!", "INHUMAN REACTION!", "pro3")
         )
 
-        val pro = owPlayers.asSequence().map { it.name }.toList()
+        val pro = owPlayers.asSequence().map { it.lastName }.toList()
         for(i in pro){
             Log.d(TAG, i)
         }
@@ -60,7 +61,7 @@ class MainActivity: AppCompatActivity() {
         }
 
         bottomNav = findViewById(R.id.bottom_nav)
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MatchesFragment()).commit()
+
 
         bottomNav.setOnNavigationItemSelectedListener { menuItem ->
             var selectedFragment: Fragment = MatchesFragment()

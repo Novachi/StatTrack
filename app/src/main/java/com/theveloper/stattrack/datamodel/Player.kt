@@ -1,4 +1,4 @@
 package com.theveloper.stattrack.datamodel
 
-open class Player (val name: String, val realName: String, val favHero:String){
+open class Player (val firstName: String, val lastName: String, val nickname: String){
 }

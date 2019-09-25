@@ -1,4 +1,4 @@
 package com.theveloper.stattrack.datamodel
 
-class OverwatchPlayer(name: String, realName: String, favHero: String) : Player(name, realName, favHero) {
+class OverwatchPlayer(firstName: String, lastName: String, nickname: String, val favHero: String) : Player(firstName, lastName, nickname) {
 }

@@ -13,7 +13,10 @@ class Team<T : Player>(
         val sb = StringBuilder("teamek")
         sb.append("\n===========${this.name}=============\n")
         for((i, player) in players.withIndex()){
-            sb.append("${i+1}.${player.realName} \"${player.name}\" : ${player.favHero}\n")
+            sb.append("${i+1}.${player.firstName} \"${player.nickname}\" ${player.lastName}")
+            when(player){
+                is OverwatchPlayer -> sb.append(" favourite hero: ${player.favHero}")
+            }
         }
         sb.append("==============================")
 
