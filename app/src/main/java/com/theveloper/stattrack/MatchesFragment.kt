@@ -28,7 +28,7 @@ class MatchesFragment : Fragment(){
         val matchesList: MutableList<MatchItem> = mutableListOf(MatchItem(R.drawable.ic_train_black_24dp, R.drawable.ic_tram_black_24dp, "Pociagarze", "Tramwajarze"))
         val mRecycleView: RecyclerView = matches_list
         val mLayoutManager = LinearLayoutManager(parentFragment?.context)
-        val mAdapter = MatchesListAdapter(matchesList)
+        val mAdapter = MatchesListAdapter(matchesList, parentFragment?.context)
         mRecycleView.adapter = mAdapter
         mRecycleView.layoutManager = mLayoutManager
         mRecycleView.setHasFixedSize(true)
