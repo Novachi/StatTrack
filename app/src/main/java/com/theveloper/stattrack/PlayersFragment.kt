@@ -1,12 +1,13 @@
 package com.theveloper.stattrack
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class PlayersFragment : Fragment(){
+class PlayersFragment(val mContext: Context) : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

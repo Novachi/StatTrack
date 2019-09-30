@@ -49,7 +49,7 @@ class MainActivity: AppCompatActivity() {
             Log.d(TAG, i)
         }
 
-        val owTeam = Team<OverwatchPlayer>("WOWY", 22.toDouble(),owPlayers)
+        val owTeam = Team<OverwatchPlayer>("WOWY", 22.toDouble(),owPlayers, R.drawable.ic_train_black_24dp)
 
         owTeam.listAllPlayers()
 
@@ -64,19 +64,19 @@ class MainActivity: AppCompatActivity() {
 
 
         bottomNav.setOnNavigationItemSelectedListener { menuItem ->
-            var selectedFragment: Fragment = MatchesFragment()
-            if(menuItem.itemId == R.id.nav_matches){
-                selectedFragment = MatchesFragment()
-            } else if(menuItem.itemId == R.id.nav_teams){
-                selectedFragment = TeamsFragment()
-            } else if(menuItem.itemId == R.id.nav_players){
-                selectedFragment = PlayersFragment()
+            var selectedFragment: Fragment = MatchesFragment(this)
+            when {
+                menuItem.itemId == R.id.nav_matches -> selectedFragment = MatchesFragment(this)
+                menuItem.itemId == R.id.nav_teams -> selectedFragment = TeamsFragment()
+                menuItem.itemId == R.id.nav_players -> selectedFragment = PlayersFragment(this)
             }
 
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, selectedFragment).commit()
 
             true
         }
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MatchesFragment(this)).commit()
 
 
 

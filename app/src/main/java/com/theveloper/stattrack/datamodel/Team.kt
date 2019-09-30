@@ -5,7 +5,8 @@ import android.util.Log
 class Team<T : Player>(
  val name: String,
  var winLoseRatio: Double,
- val players: List<T>
+ val players: List<T>,
+ val logoResource: Int
 ){
     private val TAG = "TeamClass"
 

@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="4dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="4dp">
 
         <ImageView
-            android:contentDescription="team1Logo"
-            android:id="@+id/teamOneLogo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="2dp" />
+                android:id="@+id/teamOneLogo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="team1Logo"
+                android:padding="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/teamOneName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/teamOneLogo"
-            android:text="Team 1"
-            android:textColor="#000"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+                android:id="@+id/teamOneName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/teamOneLogo"
+                android:text="Team 1"
+                android:textColor="#000"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/VSTextView"
+                app:layout_constraintStart_toEndOf="@+id/teamOneLogo"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/VSTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:layout_toRightOf="@+id/teamOneName"
-            android:layout_marginLeft="65dp"
-            android:layout_marginRight="65dp"
-            android:textColor="#000"
-            android:text="VS"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+                android:id="@+id/VSTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/teamOneName"
+                android:text="@string/matchScore"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
                 android:id="@+id/teamTwoName"
@@ -52,15 +61,23 @@
                 android:textColor="#000"
                 android:textSize="15dp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/teamTwoLogo"
+                app:layout_constraintStart_toEndOf="@+id/VSTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
-                android:contentDescription="team1Logo"
                 android:id="@+id/teamTwoLogo"
-                android:layout_toEndOf="@+id/teamTwoName"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:padding="2dp" />
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/teamTwoName"
+                android:contentDescription="team1Logo"
+                android:padding="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

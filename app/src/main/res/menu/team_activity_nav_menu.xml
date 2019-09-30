@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:id="@+id/results_tab"
+            android:icon="@drawable/ic_results_black_24dp"
+            android:title="results" />
+    <item
+            android:id="@+id/rooster_tab"
+            android:icon="@drawable/ic_team_black_24dp"
+            android:title="rooster" />
+</menu>

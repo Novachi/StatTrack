@@ -3,4 +3,5 @@
     <string name="my_teams_bottom">My Teams</string>
     <string name="all_matches_bottom">All matches</string>
     <string name="my_players_bottom">My Players</string>
+    <string name="matchScore">%d : %d</string>
 </resources>
