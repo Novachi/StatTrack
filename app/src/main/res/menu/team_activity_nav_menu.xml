@@ -7,7 +7,7 @@
             android:icon="@drawable/ic_results_black_24dp"
             android:title="results" />
     <item
-            android:id="@+id/rooster_tab"
+            android:id="@+id/roster_tab"
             android:icon="@drawable/ic_team_black_24dp"
-            android:title="rooster" />
+            android:title="roster" />
 </menu>

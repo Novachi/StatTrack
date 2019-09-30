@@ -50,8 +50,15 @@ class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchPlayer, Tea
     private fun switchToTeamActivity(position: Int, teamNumber: Int){
         val intent = Intent(mContext, TeamActivity::class.java)
         when (teamNumber) {
-            1 -> intent.putExtra("team-name", matchesList[position].team1.name)
-            2 -> intent.putExtra("team-name", matchesList[position].team2.name)
+            1 -> {
+                intent.putExtra("team-name", matchesList[position].team1.name)
+                intent.putExtra("team-logo", matchesList[position].team1.logoResource)
+            }
+
+            2 -> {
+                intent.putExtra("team-name", matchesList[position].team2.name)
+                intent.putExtra("team-logo", matchesList[position].team2.logoResource)
+            }
         }
 
         mContext?.startActivity(intent)
