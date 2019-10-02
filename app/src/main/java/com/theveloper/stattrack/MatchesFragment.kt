@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.theveloper.stattrack.datamodel.Match
 import com.theveloper.stattrack.datamodel.OverwatchPlayer
 import com.theveloper.stattrack.datamodel.Team
 import kotlinx.android.synthetic.main.fragment_matches.*
@@ -18,20 +19,28 @@ class MatchesFragment(val mContext: Context) : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_matches, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+        return inflater.inflate(R.layout.recycler_view_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val matchesList: MutableList<Match<OverwatchPlayer, Team<OverwatchPlayer>>> = mutableListOf(
-            Match(Team<OverwatchPlayer>("Prosy", 1.0, mutableListOf(), R.drawable.ic_train_black_24dp),
-                  Team<OverwatchPlayer>("NieProsy", 1.0, mutableListOf(), R.drawable.ic_tram_black_24dp), 2, 3))
-        val mRecycleView: RecyclerView = matches_list
+            Match(
+                Team<OverwatchPlayer>(
+                    "Prosy",
+                    1.0,
+                    mutableListOf(),
+                    R.drawable.ic_train_black_24dp
+                ),
+                Team<OverwatchPlayer>(
+                    "NieProsy",
+                    1.0,
+                    mutableListOf(),
+                    R.drawable.ic_tram_black_24dp
+                ), 2, 3
+            )
+        )
+        val mRecycleView: RecyclerView = list
         val mLayoutManager = LinearLayoutManager(parentFragment?.context)
         val mAdapter = MatchesListAdapter(matchesList, mContext)
         mRecycleView.adapter = mAdapter

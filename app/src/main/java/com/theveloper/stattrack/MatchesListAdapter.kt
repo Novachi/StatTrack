@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.theveloper.stattrack.datamodel.Match
 import com.theveloper.stattrack.datamodel.OverwatchPlayer
 import com.theveloper.stattrack.datamodel.Team
 
@@ -53,11 +54,13 @@ class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchPlayer, Tea
             1 -> {
                 intent.putExtra("team-name", matchesList[position].team1.name)
                 intent.putExtra("team-logo", matchesList[position].team1.logoResource)
+                intent.putExtra("team", matchesList[position])
             }
 
             2 -> {
                 intent.putExtra("team-name", matchesList[position].team2.name)
                 intent.putExtra("team-logo", matchesList[position].team2.logoResource)
+                intent.putExtra("team", matchesList[position])
             }
         }
 
