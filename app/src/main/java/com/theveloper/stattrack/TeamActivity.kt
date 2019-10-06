@@ -16,7 +16,7 @@ import java.io.Serializable
 
 class TeamActivity: AppCompatActivity() {
     private lateinit var navBar: BottomNavigationView
-    private var team: Serializable? = null
+    private var team: Team? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,23 +48,20 @@ class TeamActivity: AppCompatActivity() {
     }
 
     private fun getIncomingIntent(){
-        var teamName: String? = ""
-        var teamLogo: Int = 0
         if(intent.hasExtra("team-name")){
-            teamName  = intent.getStringExtra("team-name")
-            teamLogo = intent.getIntExtra("team-logo", R.drawable.ic_launcher_background)
-            team = intent.getSerializableExtra("team")
+            team = intent.getParcelableExtra<Team>("team")
 
         }
 
-        setupActivity(teamName, teamLogo, team)
+        setupActivity(team)
     }
 
-    private fun setupActivity(teamName: String?, teamLogo: Int?, team: Serializable?){
+    private fun setupActivity(team: Team?){
+        this.team = team!!
         val name: TextView = findViewById(R.id.teamName)
         val logo: ImageView = findViewById(R.id.teamLogo)
-        name.text = teamName
-        logo.setImageResource(teamLogo!!)
-        this.team = team!!
+        name.text = team.name
+        logo.setImageResource(team.logoResource)
+
     }
 }

@@ -26,8 +26,8 @@ class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchTeam>>, val
 
     override fun onBindViewHolder(holder: MatchesViewHolder, position: Int) {
         val current: Match<OverwatchTeam> = matchesList[position]
-        holder.mImageViewOne.setImageResource(current.team1.logoResource)
-        holder.mImageViewTwo.setImageResource(current.team2.logoResource)
+        holder.mImageViewOne.setImageResource(current.team1!!.logoResource)
+        holder.mImageViewTwo.setImageResource(current.team2!!.logoResource)
         holder.textViewOne.text = current.team1.name
         holder.textViewTwo.text = current.team2.name
         holder.scoreTextView.text = mContext?.getString(R.string.matchScore, current.team1Score, current.team2Score)
@@ -53,15 +53,11 @@ class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchTeam>>, val
         val intent = Intent(mContext, TeamActivity::class.java)
         when (teamNumber) {
             1 -> {
-                intent.putExtra("team-name", matchesList[position].team1.name)
-                intent.putExtra("team-logo", matchesList[position].team1.logoResource)
-                intent.putExtra("team", matchesList[position])
+                intent.putExtra("team", matchesList[position].team1)
             }
 
             2 -> {
-                intent.putExtra("team-name", matchesList[position].team2.name)
-                intent.putExtra("team-logo", matchesList[position].team2.logoResource)
-                intent.putExtra("team", matchesList[position])
+                intent.putExtra("team", matchesList[position].team2)
             }
         }
 
