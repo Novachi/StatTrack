@@ -41,7 +41,7 @@ class TeamActivity: AppCompatActivity() {
 
         getIncomingIntent()
 
-        Log.d("TeamActivity", (team as Team<OverwatchPlayer>).toString())
+        Log.d("TeamActivity", (team as Team).toString())
 
 
 

@@ -11,9 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.theveloper.stattrack.datamodel.Match
 import com.theveloper.stattrack.datamodel.OverwatchPlayer
+import com.theveloper.stattrack.datamodel.OverwatchTeam
 import com.theveloper.stattrack.datamodel.Team
 
-class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchPlayer, Team<OverwatchPlayer>>>, val mContext: Context?): RecyclerView.Adapter<MatchesViewHolder>() {
+class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchTeam>>, val mContext: Context?): RecyclerView.Adapter<MatchesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchesViewHolder {
         val v: View = LayoutInflater.from(parent.context).inflate(R.layout.match_item, parent, false)
         return MatchesViewHolder(v)
@@ -24,7 +25,7 @@ class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchPlayer, Tea
     }
 
     override fun onBindViewHolder(holder: MatchesViewHolder, position: Int) {
-        val current: Match<OverwatchPlayer, Team<OverwatchPlayer>> = matchesList[position]
+        val current: Match<OverwatchTeam> = matchesList[position]
         holder.mImageViewOne.setImageResource(current.team1.logoResource)
         holder.mImageViewTwo.setImageResource(current.team2.logoResource)
         holder.textViewOne.text = current.team1.name

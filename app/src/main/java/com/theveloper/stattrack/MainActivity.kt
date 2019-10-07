@@ -12,6 +12,7 @@ import com.android.volley.toolbox.Volley
 import com.beust.klaxon.Parser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.theveloper.stattrack.datamodel.OverwatchPlayer
+import com.theveloper.stattrack.datamodel.OverwatchTeam
 import com.theveloper.stattrack.datamodel.Team
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
@@ -22,7 +23,6 @@ class MainActivity: AppCompatActivity() {
 
     private val TAG = "MainActivity"
     private lateinit var queue:RequestQueue
-    private lateinit var lolek: JSONObject
     private lateinit var bottomNav: BottomNavigationView
 
 
@@ -49,7 +49,7 @@ class MainActivity: AppCompatActivity() {
             Log.d(TAG, i)
         }
 
-        val owTeam = Team<OverwatchPlayer>("WOWY", 22.toDouble(),owPlayers, R.drawable.ic_train_black_24dp)
+        val owTeam = OverwatchTeam("WOWY", 22.toDouble(),owPlayers, R.drawable.ic_train_black_24dp)
 
         owTeam.listAllPlayers()
 
