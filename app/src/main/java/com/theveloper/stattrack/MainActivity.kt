@@ -31,6 +31,21 @@ class MainActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val teamsList: MutableList<Team> = mutableListOf(
+            OverwatchTeam(
+                "Prosy",
+                1.0,
+                mutableListOf(),
+                R.drawable.ic_train_black_24dp
+            ),
+            OverwatchTeam(
+                "NieProsy",
+                1.0,
+                mutableListOf(),
+                R.drawable.ic_tram_black_24dp
+            )
+        )
+
 //        queue = Volley.newRequestQueue(this)
 
 //        var x: Deferred<String>? = null
@@ -67,7 +82,7 @@ class MainActivity: AppCompatActivity() {
             var selectedFragment: Fragment = MatchesFragment(this)
             when {
                 menuItem.itemId == R.id.nav_matches -> selectedFragment = MatchesFragment(this)
-                menuItem.itemId == R.id.nav_teams -> selectedFragment = TeamsFragment()
+                menuItem.itemId == R.id.nav_teams -> selectedFragment = TeamsFragment(this, teamsList)
                 menuItem.itemId == R.id.nav_players -> selectedFragment = PlayersFragment(this)
             }
 

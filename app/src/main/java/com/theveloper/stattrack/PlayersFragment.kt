@@ -22,7 +22,7 @@ class PlayersFragment(val mContext: Context) : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.list)
-        recyclerView.adapter = PLayersListAdapter(mutableListOf(
+        recyclerView.adapter = PlayersListAdapter(mutableListOf(
             OverwatchPlayer("Hiko", "pro player 10", "Windowmarker", "PRo1"),
             OverwatchPlayer("U kiddin me?!", "LOL", "PE ER O ES TE O", "Pro2"),
             OverwatchPlayer("WHAT?!", "OH MY GOD!", "INHUMAN REACTION!", "pro3")))

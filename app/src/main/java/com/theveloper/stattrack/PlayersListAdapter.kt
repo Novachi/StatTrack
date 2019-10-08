@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.theveloper.stattrack.datamodel.Player
 
-class PLayersListAdapter(val players: MutableList<Player>): RecyclerView.Adapter<PlayersViewHolder>(){
+class PlayersListAdapter(val players: MutableList<Player>): RecyclerView.Adapter<PlayersViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayersViewHolder {
         val v: View = LayoutInflater.from(parent.context).inflate(R.layout.player_item, parent, false)
         return PlayersViewHolder(v)
