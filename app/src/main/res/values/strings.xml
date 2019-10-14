@@ -4,4 +4,6 @@
     <string name="all_matches_bottom">All matches</string>
     <string name="my_players_bottom">My Players</string>
     <string name="matchScore">%d : %d</string>
+    <string name="drawer_open">Pro jeden</string>
+    <string name="drawer_close">Pro dwa</string>
 </resources>

@@ -5,7 +5,8 @@
     <item
             android:id="@+id/results_tab"
             android:icon="@drawable/ic_results_black_24dp"
-            android:title="results" />
+            android:title="results"
+            android:checked="true"/>
     <item
             android:id="@+id/roster_tab"
             android:icon="@drawable/ic_team_black_24dp"

@@ -6,7 +6,8 @@
 
     <item android:id="@+id/nav_matches"
         android:icon="@drawable/ic_today_black_24dp"
-        android:title="@string/all_matches_bottom"/>
+        android:title="@string/all_matches_bottom"
+        android:checked="true"/>
 
     <item android:id="@+id/nav_players"
         android:icon="@drawable/ic_players_black_24dp"
