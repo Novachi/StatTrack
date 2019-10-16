@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.theveloper.stattrack.datamodel.OverwatchPlayer
+import com.theveloper.stattrack.datamodel.OverwatchTeam
 import com.theveloper.stattrack.datamodel.Player
 import com.theveloper.stattrack.datamodel.Team
 import kotlinx.android.synthetic.main.team_activity.*
@@ -48,16 +49,16 @@ class TeamActivity: AppCompatActivity() {
     }
 
     private fun getIncomingIntent(){
-        if(intent.hasExtra("team-name")){
-            team = intent.getParcelableExtra<Team>("team")
+        if(intent.hasExtra("team")){
+            team = intent.getParcelableExtra("team")
 
         }
 
-        setupActivity(team)
+        setupActivity(team!!)
     }
 
-    private fun setupActivity(team: Team?){
-        this.team = team!!
+    private fun setupActivity(team: Team){
+        this.team = team
         val name: TextView = findViewById(R.id.teamName)
         val logo: ImageView = findViewById(R.id.teamLogo)
         name.text = team.name

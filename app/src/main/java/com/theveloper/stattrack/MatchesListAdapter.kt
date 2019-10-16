@@ -3,6 +3,7 @@ package com.theveloper.stattrack
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,10 +54,12 @@ class MatchesListAdapter(val matchesList: MutableList<Match<OverwatchTeam>>, val
         val intent = Intent(mContext, TeamActivity::class.java)
         when (teamNumber) {
             1 -> {
+
                 intent.putExtra("team", matchesList[position].team1)
             }
 
             2 -> {
+                Log.d("PRO", matchesList[position].team2!!.name)
                 intent.putExtra("team", matchesList[position].team2)
             }
         }
