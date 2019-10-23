@@ -1,6 +1,7 @@
 package com.theveloper.stattrack
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.theveloper.stattrack.datamodel.OverwatchTeam
 import com.theveloper.stattrack.datamodel.Team
 
-class TeamsFragment(val mContext: Context, val teams: MutableList<Team>) : Fragment(){
+class TeamsFragment(val mContext: Context, val teams: MutableList<Team>) : Fragment(), onTeamListener{
+    override fun teamOnClick(position: Int) {
+        val intent = Intent(mContext, TeamActivity::class.java)
+        intent.putExtra("team", teams[position])
+        mContext.startActivity(intent)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,6 +30,6 @@ class TeamsFragment(val mContext: Context, val teams: MutableList<Team>) : Fragm
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val teamsList: RecyclerView = view.findViewById(R.id.list)
         teamsList.layoutManager = LinearLayoutManager(parentFragment?.context)
-        teamsList.adapter = TeamsListAdapter(teams,  mContext)
+        teamsList.adapter = TeamsListAdapter(teams,  mContext, this)
     }
 }

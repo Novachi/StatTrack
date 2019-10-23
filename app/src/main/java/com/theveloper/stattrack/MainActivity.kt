@@ -13,6 +13,8 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
+import com.theveloper.stattrack.datamodel.CsgoTeam
 import com.theveloper.stattrack.datamodel.OverwatchPlayer
 import com.theveloper.stattrack.datamodel.OverwatchTeam
 import com.theveloper.stattrack.datamodel.Team
@@ -25,6 +27,7 @@ class MainActivity: AppCompatActivity() {
     private lateinit var bottomNav: BottomNavigationView
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var sideNav: NavigationView
 
 
 
@@ -35,13 +38,14 @@ class MainActivity: AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         drawerLayout = findViewById(R.id.drawer_main)
-
+        sideNav = findViewById(R.id.side_nav)
         toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        bottomNav = findViewById(R.id.bottom_nav)
 
 
-        val teamsList: MutableList<Team> = mutableListOf(
+        var teamsList: MutableList<Team> = mutableListOf(
             OverwatchTeam(
                 "Prosy",
                 1.0,
@@ -85,7 +89,51 @@ class MainActivity: AppCompatActivity() {
                 Log.d(TAG, result)
         }
 
-        bottomNav = findViewById(R.id.bottom_nav)
+
+        sideNav.setNavigationItemSelectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.nav_overwatch -> {
+                    teamsList = mutableListOf(
+                        OverwatchTeam(
+                        "Prosy",
+                        1.0,
+                        mutableListOf(),
+                        R.drawable.ic_train_black_24dp
+                    ),
+                        OverwatchTeam(
+                            "NieProsy",
+                            1.0,
+                            mutableListOf(),
+                            R.drawable.ic_tram_black_24dp
+                    ))
+                    true
+                }
+
+                R.id.nav_csgo -> {
+                    teamsList = mutableListOf(
+                        CsgoTeam(
+                            "WOWT",
+                            1.0,
+                            mutableListOf(),
+                            R.drawable.ic_train_black_24dp
+                        ),
+                        CsgoTeam(
+                            "Niedasdas",
+                            1.0,
+                            mutableListOf(),
+                            R.drawable.ic_tram_black_24dp
+                        ))
+                    true
+                }
+
+                else -> {
+                    teamsList = mutableListOf()
+                    true
+                }
+            }
+
+
+        }
 
 
         bottomNav.setOnNavigationItemSelectedListener { menuItem ->

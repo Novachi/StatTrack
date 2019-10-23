@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:id="@+id/nav_first_fragment"
+            android:id="@+id/nav_overwatch"
             android:icon="@drawable/ic_players_black_24dp"
             android:title="First" />
     <item
-            android:id="@+id/nav_second_fragment"
+            android:id="@+id/nav_csgo"
             android:icon="@drawable/ic_results_black_24dp"
             android:title="Second" />
     <item
-            android:id="@+id/nav_third_fragment"
+            android:id="@+id/nav_league"
             android:icon="@drawable/ic_train_black_24dp"
             android:title="Third" />
 </menu>
