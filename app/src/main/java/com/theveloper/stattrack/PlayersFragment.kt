@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.theveloper.stattrack.datamodel.OverwatchPlayer
+import com.theveloper.stattrack.datamodel.Player
 
 class PlayersFragment(val mContext: Context) : Fragment(){
     override fun onCreateView(
@@ -23,9 +23,10 @@ class PlayersFragment(val mContext: Context) : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val recyclerView: RecyclerView = view.findViewById(R.id.list)
         recyclerView.adapter = PlayersListAdapter(mutableListOf(
-            OverwatchPlayer("Hiko", "pro player 10", "Windowmarker", "PRo1"),
-            OverwatchPlayer("U kiddin me?!", "LOL", "PE ER O ES TE O", "Pro2"),
-            OverwatchPlayer("WHAT?!", "OH MY GOD!", "INHUMAN REACTION!", "pro3")))
+            Player.OverwatchPlayer("Hiko", "pro player 10", "Windowmarker", "PRo1"),
+            Player.OverwatchPlayer("U kiddin me?!", "LOL", "PE ER O ES TE O", "Pro2"),
+            Player.OverwatchPlayer("WHAT?!", "OH MY GOD!", "INHUMAN REACTION!", "pro3")
+        ))
         recyclerView.layoutManager = LinearLayoutManager(parentFragment?.context)
     }
 }

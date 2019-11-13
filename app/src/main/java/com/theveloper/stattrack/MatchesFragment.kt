@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.theveloper.stattrack.datamodel.Match
-import com.theveloper.stattrack.datamodel.OverwatchPlayer
-import com.theveloper.stattrack.datamodel.OverwatchTeam
 import com.theveloper.stattrack.datamodel.Team
 import kotlinx.android.synthetic.main.fragment_matches.*
 
@@ -25,15 +23,15 @@ class MatchesFragment(val mContext: Context) : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val matchesList: MutableList<Match<OverwatchTeam>> = mutableListOf(
+        val matchesList: MutableList<Match> = mutableListOf(
             Match(
-                OverwatchTeam(
+                Team.OverwatchTeam(
                     "Prosy",
                     1.0,
                     mutableListOf(),
                     R.drawable.ic_train_black_24dp
                 ),
-                OverwatchTeam(
+                Team.OverwatchTeam(
                     "NieProsy",
                     1.0,
                     mutableListOf(),

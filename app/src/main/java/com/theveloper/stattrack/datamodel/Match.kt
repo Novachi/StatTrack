@@ -4,11 +4,11 @@ import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
-class Match<T: Team>(val team1: T?, val team2: T?, val team1Score: Int, val team2Score: Int): Parcelable {
+class Match(val team1: Team?, val team2: Team?, val team1Score: Int, val team2Score: Int): Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.readParcelable(Match<T>::team1.javaClass.classLoader),
-        parcel.readParcelable(Match<T>::team1.javaClass.classLoader),
+        parcel.readParcelable(Match::team1.javaClass.classLoader),
+        parcel.readParcelable(Match::team1.javaClass.classLoader),
         parcel.readInt(),
         parcel.readInt()
     ) {
@@ -25,12 +25,12 @@ class Match<T: Team>(val team1: T?, val team2: T?, val team1Score: Int, val team
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Match<Team>> {
-        override fun createFromParcel(parcel: Parcel): Match<Team> {
+    companion object CREATOR : Parcelable.Creator<Match> {
+        override fun createFromParcel(parcel: Parcel): Match{
             return Match(parcel)
         }
 
-        override fun newArray(size: Int): Array<Match<Team>?> {
+        override fun newArray(size: Int): Array<Match?> {
             return arrayOfNulls(size)
         }
     }

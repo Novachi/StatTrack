@@ -6,14 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.theveloper.stattrack.datamodel.OverwatchPlayer
-import com.theveloper.stattrack.datamodel.OverwatchTeam
-import com.theveloper.stattrack.datamodel.Player
 import com.theveloper.stattrack.datamodel.Team
-import kotlinx.android.synthetic.main.team_activity.*
-import java.io.Serializable
 
 class TeamActivity: AppCompatActivity() {
     private lateinit var navBar: BottomNavigationView

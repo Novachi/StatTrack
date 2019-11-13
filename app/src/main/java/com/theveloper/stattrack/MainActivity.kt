@@ -14,9 +14,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.theveloper.stattrack.datamodel.CsgoTeam
-import com.theveloper.stattrack.datamodel.OverwatchPlayer
-import com.theveloper.stattrack.datamodel.OverwatchTeam
+import com.theveloper.stattrack.datamodel.Player
 import com.theveloper.stattrack.datamodel.Team
 import kotlinx.coroutines.*
 
@@ -46,13 +44,13 @@ class MainActivity: AppCompatActivity() {
 
 
         var teamsList: MutableList<Team> = mutableListOf(
-            OverwatchTeam(
+            Team.OverwatchTeam(
                 "Prosy",
                 1.0,
                 mutableListOf(),
                 R.drawable.ic_train_black_24dp
             ),
-            OverwatchTeam(
+            Team.OverwatchTeam(
                 "NieProsy",
                 1.0,
                 mutableListOf(),
@@ -67,10 +65,10 @@ class MainActivity: AppCompatActivity() {
 //            x = async { sendRequest() }
 //        }
 
-        val owPlayers = listOf<OverwatchPlayer>(
-            OverwatchPlayer("Hiko", "pro player 10", "Windowmarker", "PRo1"),
-            OverwatchPlayer("U kiddin me?!", "LOL", "PE ER O ES TE O", "Pro2"),
-            OverwatchPlayer("WHAT?!", "OH MY GOD!", "INHUMAN REACTION!", "pro3")
+        val owPlayers = listOf<Player.OverwatchPlayer>(
+            Player.OverwatchPlayer("Hiko", "pro player 10", "Windowmarker", "PRo1"),
+            Player.OverwatchPlayer("U kiddin me?!", "LOL", "PE ER O ES TE O", "Pro2"),
+            Player.OverwatchPlayer("WHAT?!", "OH MY GOD!", "INHUMAN REACTION!", "pro3")
         )
 
         val pro = owPlayers.asSequence().map { it.lastName }.toList()
@@ -78,9 +76,8 @@ class MainActivity: AppCompatActivity() {
             Log.d(TAG, i)
         }
 
-        val owTeam = OverwatchTeam("WOWY", 22.toDouble(),owPlayers, R.drawable.ic_train_black_24dp)
-
-        owTeam.listAllPlayers()
+        val owTeam =
+            Team.OverwatchTeam("WOWY", 22.toDouble(), owPlayers, R.drawable.ic_train_black_24dp)
 
         GlobalScope.launch(Dispatchers.Main) {
                 val result = async { loadString() }.await()
@@ -94,35 +91,37 @@ class MainActivity: AppCompatActivity() {
             when(menuItem.itemId){
                 R.id.nav_overwatch -> {
                     teamsList = mutableListOf(
-                        OverwatchTeam(
-                        "Prosy",
-                        1.0,
-                        mutableListOf(),
-                        R.drawable.ic_train_black_24dp
-                    ),
-                        OverwatchTeam(
+                        Team.OverwatchTeam(
+                            "Prosy",
+                            1.0,
+                            mutableListOf(),
+                            R.drawable.ic_train_black_24dp
+                        ),
+                        Team.OverwatchTeam(
                             "NieProsy",
                             1.0,
                             mutableListOf(),
                             R.drawable.ic_tram_black_24dp
-                    ))
+                        )
+                    )
                     true
                 }
 
                 R.id.nav_csgo -> {
                     teamsList = mutableListOf(
-                        CsgoTeam(
+                        Team.CsgoTeam(
                             "WOWT",
                             1.0,
                             mutableListOf(),
                             R.drawable.ic_train_black_24dp
                         ),
-                        CsgoTeam(
+                        Team.CsgoTeam(
                             "Niedasdas",
                             1.0,
                             mutableListOf(),
                             R.drawable.ic_tram_black_24dp
-                        ))
+                        )
+                    )
                     true
                 }
 
