@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "672576763481",
+    "firebase_url": "https://stattrack-6ed01.firebaseio.com",
+    "project_id": "stattrack-6ed01",
+    "storage_bucket": "stattrack-6ed01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:672576763481:android:1cd655dfde9b984eb36348",
+        "android_client_info": {
+          "package_name": "com.theveloper.stattrack"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "672576763481-0djns803mj63043iqiifqjcve6a1lkvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRwplZ6GxeNbbEMKHxKDk35-8z1bZXJn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "672576763481-0djns803mj63043iqiifqjcve6a1lkvj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

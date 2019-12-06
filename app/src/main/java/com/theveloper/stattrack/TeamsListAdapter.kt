@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.theveloper.stattrack.datamodel.Match
-import com.theveloper.stattrack.datamodel.OverwatchTeam
 import com.theveloper.stattrack.datamodel.Team
 
 class TeamsListAdapter(val teamsList: MutableList<Team>, val mContext: Context?, val onTeamListener: onTeamListener): RecyclerView.Adapter<TeamListViewHolder>() {

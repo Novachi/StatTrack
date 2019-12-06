@@ -5,61 +5,79 @@ import android.os.Parcelable
 import android.util.Log
 import java.io.Serializable
 
-open class Team(
- val name: String,
- var winLoseRatio: Double,
- val players: List<Player>,
- val logoResource: Int
-): Parcelable{
+sealed class Team(val name: String,
+                  val winLoseRatio: Double,
+                  val players: List<Player>,
+                  val logoResource: Int) : Parcelable {
+    class OverwatchTeam(
+        name: String,
+        winLoseRatio: Double,
+        players: List<Player.OverwatchPlayer>,
+        logoResource: Int
+    ) : Team(name,  winLoseRatio, players, logoResource) {
+        constructor(parcel: Parcel) : this(
+            parcel.readString()!!,
+            parcel.readDouble(),
+            parcel.createTypedArrayList(Player.OverwatchPlayer.CREATOR)!!,
+            parcel.readInt()
+        ) {
+        }
 
-    private val TAG = "TeamClass"
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(name)
+            parcel.writeDouble(winLoseRatio)
+            parcel.writeTypedList(players)
+            parcel.writeInt(logoResource)
+        }
 
-    constructor(parcel: Parcel) : this(
-        parcel.readString()!!,
-        parcel.readDouble(),
-        parcel.createTypedArrayList(Player)!!,
-        parcel.readInt()
-    ) {
-    }
+        override fun describeContents(): Int {
+            return 0
+        }
 
-    fun listAllPlayers(){
-        val sb = StringBuilder("teamek")
-        sb.append("\n===========${this.name}=============\n")
-        for((i, player) in players.withIndex()){
-            sb.append("${i+1}.${player.firstName} \"${player.nickname}\" ${player.lastName}")
-            when(player){
-                is OverwatchPlayer -> sb.append(" favourite hero: ${player.favHero}")
+        companion object CREATOR : Parcelable.Creator<OverwatchTeam> {
+            override fun createFromParcel(parcel: Parcel): OverwatchTeam {
+                return OverwatchTeam(parcel)
+            }
+
+            override fun newArray(size: Int): Array<OverwatchTeam?> {
+                return arrayOfNulls(size)
             }
         }
-        sb.append("==============================")
-
-        Log.d(TAG, sb.toString())
     }
 
-    override fun toString(): String {
-        return "teamName = $name, winLoseRatio = $winLoseRatio"
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(name)
-        parcel.writeDouble(winLoseRatio)
-        parcel.writeTypedList(players)
-        parcel.writeInt(logoResource)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Team> {
-        override fun createFromParcel(parcel: Parcel): Team {
-            return Team(parcel)
+    class CsgoTeam(
+        name: String,
+        winLoseRatio: Double,
+        players: List<Player.CsgoPlayer>,
+        logoResource: Int
+    ) : Team(name,  winLoseRatio, players, logoResource) {
+        constructor(parcel: Parcel) : this(
+            parcel.readString()!!,
+            parcel.readDouble(),
+            parcel.createTypedArrayList(Player.CsgoPlayer.CREATOR)!!,
+            parcel.readInt()
+        ) {
         }
 
-        override fun newArray(size: Int): Array<Team?> {
-            return arrayOfNulls(size)
+        override fun writeToParcel(parcel: Parcel, flags: Int) {
+            parcel.writeString(name)
+            parcel.writeDouble(winLoseRatio)
+            parcel.writeTypedList(players)
+            parcel.writeInt(logoResource)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        companion object CREATOR : Parcelable.Creator<CsgoTeam> {
+            override fun createFromParcel(parcel: Parcel): CsgoTeam {
+                return CsgoTeam(parcel)
+            }
+
+            override fun newArray(size: Int): Array<CsgoTeam?> {
+                return arrayOfNulls(size)
+            }
         }
     }
-
-
 }
