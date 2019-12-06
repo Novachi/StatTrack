@@ -1,22 +1,45 @@
 package com.theveloper.stattrack
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-import com.theveloper.stattrack.datamodel.Player
-import com.theveloper.stattrack.datamodel.Team
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.auth.User
+import com.squareup.picasso.Picasso
+import com.theveloper.stattrack.datamodel.*
 import kotlinx.coroutines.*
+import org.mindrot.jbcrypt.BCrypt
+import java.io.InputStream
+import java.net.URI
+import java.util.stream.Stream
 
 class MainActivity: AppCompatActivity() {
 
@@ -26,6 +49,58 @@ class MainActivity: AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var sideNav: NavigationView
+    private lateinit var headerImage: ImageView
+    private lateinit var headerUsername: TextView
+    private val loginProviders = arrayListOf(AuthUI.IdpConfig.EmailBuilder().build(), AuthUI.IdpConfig.GoogleBuilder().build())
+    private val RC_SIGN_IN = 1
+
+    companion object {
+        var matchesList: MutableList<Match> = mutableListOf(
+            Match(
+                Team.OverwatchTeam(
+                    "Prosy",
+                    1.0,
+                    mutableListOf(),
+                    R.drawable.ic_train_black_24dp
+                ),
+                Team.OverwatchTeam(
+                    "NieProsy",
+                    1.0,
+                    mutableListOf(),
+                    R.drawable.ic_tram_black_24dp
+                ), 2, 3
+            )
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == RC_SIGN_IN){
+            val response = IdpResponse.fromResultIntent(data)
+
+            if(resultCode == Activity.RESULT_OK){
+//                Inflating side nav header which will show logged user information
+                sideNav.inflateHeaderView(R.layout.side_nav_header)
+                headerImage = findViewById(R.id.header_image)
+                headerUsername = findViewById(R.id.header_username)
+
+                val user = FirebaseAuth.getInstance().currentUser
+
+//                Making login option unavailable and logout option available
+               switchLoginLogoutButtons()
+
+//                Changing header image and text to show current user's data
+                headerUsername.text = user?.displayName
+                Picasso.get().load(user?.photoUrl).into(headerImage)
+
+//                Showing successful login message
+                Toast.makeText(this, "Successful login! Welcome back ${user?.displayName}", Toast.LENGTH_SHORT).show()
+            } else {
+                Log.d("USERERERE", "EROR")
+            }
+        }
+    }
 
 
 
@@ -34,14 +109,14 @@ class MainActivity: AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<Toolbar?>(R.id.toolbar)
         setSupportActionBar(toolbar)
-
+//        database.collection("users")
+//            .add(AppUser("dziadek", "prawiemruz", arrayListOf("prosy1", "prosy2", "prosy3"), arrayListOf("wow", "doopa", "sss")))
         drawerLayout = findViewById(R.id.drawer_main)
         sideNav = findViewById(R.id.side_nav)
         toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         bottomNav = findViewById(R.id.bottom_nav)
-
 
         var teamsList: MutableList<Team> = mutableListOf(
             Team.OverwatchTeam(
@@ -76,9 +151,6 @@ class MainActivity: AppCompatActivity() {
             Log.d(TAG, i)
         }
 
-        val owTeam =
-            Team.OverwatchTeam("WOWY", 22.toDouble(), owPlayers, R.drawable.ic_train_black_24dp)
-
         GlobalScope.launch(Dispatchers.Main) {
                 val result = async { loadString() }.await()
                 Log.d("TAG",
@@ -88,57 +160,90 @@ class MainActivity: AppCompatActivity() {
 
 
         sideNav.setNavigationItemSelectedListener { menuItem ->
+            var selectedFragment: Fragment = MatchesFragment(this, matchesList)
+            var loginLogout = false
             when(menuItem.itemId){
-                R.id.nav_overwatch -> {
-                    teamsList = mutableListOf(
-                        Team.OverwatchTeam(
-                            "Prosy",
-                            1.0,
-                            mutableListOf(),
-                            R.drawable.ic_train_black_24dp
-                        ),
-                        Team.OverwatchTeam(
-                            "NieProsy",
-                            1.0,
-                            mutableListOf(),
-                            R.drawable.ic_tram_black_24dp
+                R.id.side_nav_overwatch -> {
+                    matchesList = mutableListOf(
+                        Match(
+                            Team.OverwatchTeam(
+                                "Prosy",
+                                1.0,
+                                mutableListOf(),
+                                R.drawable.ic_train_black_24dp
+                            ),
+                            Team.OverwatchTeam(
+                                "NieProsy",
+                                1.0,
+                                mutableListOf(),
+                                R.drawable.ic_tram_black_24dp
+                            ), 2, 3
                         )
                     )
-                    true
+                    selectedFragment = MatchesFragment(this, matchesList)
                 }
 
-                R.id.nav_csgo -> {
-                    teamsList = mutableListOf(
-                        Team.CsgoTeam(
-                            "WOWT",
-                            1.0,
-                            mutableListOf(),
-                            R.drawable.ic_train_black_24dp
-                        ),
-                        Team.CsgoTeam(
-                            "Niedasdas",
-                            1.0,
-                            mutableListOf(),
-                            R.drawable.ic_tram_black_24dp
+                R.id.side_nav_csgo -> {
+                    matchesList = mutableListOf(
+                        Match(
+                            Team.CsgoTeam(
+                                "PRO",
+                                1.0,
+                                mutableListOf(),
+                                R.drawable.ic_results_black_24dp
+                            ),
+                            Team.CsgoTeam(
+                                "Mooye",
+                                1.0,
+                                mutableListOf(),
+                                R.drawable.ic_overwatch_circle_logo
+                            ), 2, 3
                         )
                     )
-                    true
+                    selectedFragment = MatchesFragment(this, matchesList)
+                }
+
+                R.id.side_nav_login -> {
+                    loginLogout = true
+                    startActivityForResult(
+                        AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(loginProviders)
+                            .build(),RC_SIGN_IN
+
+                    )
+                }
+
+                R.id.logoutButton -> {
+                    loginLogout = true
+                    AuthUI.getInstance().signOut(this).addOnCompleteListener(OnCompleteListener {
+                        switchLoginLogoutButtons()
+                        sideNav.removeHeaderView(sideNav.getHeaderView(0))
+                        Toast.makeText(this, "Logout successful!", Toast.LENGTH_SHORT).show()
+                    })
                 }
 
                 else -> {
-                    teamsList = mutableListOf()
-                    true
+                    selectedFragment = MatchesFragment(this, matchesList)
                 }
             }
-
-
+            if(!loginLogout) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, selectedFragment).commit()
+            }
+            drawerLayout.closeDrawer(GravityCompat.START)
+            true
         }
 
 
+
+
         bottomNav.setOnNavigationItemSelectedListener { menuItem ->
-            var selectedFragment: Fragment = MatchesFragment(this)
+            var selectedFragment: Fragment = MatchesFragment(this, matchesList)
             when {
-                menuItem.itemId == R.id.nav_matches -> selectedFragment = MatchesFragment(this)
+                menuItem.itemId == R.id.nav_matches -> {
+                    selectedFragment = MatchesFragment(this, matchesList)
+                }
                 menuItem.itemId == R.id.nav_teams -> selectedFragment = TeamsFragment(this, teamsList)
                 menuItem.itemId == R.id.nav_players -> selectedFragment = PlayersFragment(this)
             }
@@ -148,13 +253,9 @@ class MainActivity: AppCompatActivity() {
             true
         }
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MatchesFragment(this)).commit()
+        bottomNav.selectedItemId = R.id.nav_matches
 
-
-
-
-
-
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MatchesFragment(this, matchesList)).commit()
     }
 
     override fun onBackPressed() {
@@ -190,4 +291,19 @@ class MainActivity: AppCompatActivity() {
 
         return "PRO!"
     }
+
+    private fun switchLoginLogoutButtons(){
+        val loginOption = sideNav.menu.findItem(R.id.side_nav_login)
+        val logoutOption = sideNav.menu.findItem(R.id.logoutButton)
+
+//        Switching buttons visibility
+        loginOption.isVisible = !loginOption.isVisible
+        logoutOption.isVisible = !logoutOption.isVisible
+
+//        Switching buttons state
+        loginOption.isEnabled = !loginOption.isEnabled
+        logoutOption.isEnabled = !logoutOption.isEnabled
+
+    }
+
 }

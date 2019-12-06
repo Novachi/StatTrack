@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+            android:id="@+id/main_options"
+            android:checkableBehavior="single">
+        <item
+                android:id="@+id/side_nav_login"
+                android:icon="@drawable/ic_players_black_24dp"
+                android:title="Login" />
+
+
+    </group>
+    <item android:title="Games">
+        <menu>
+            <group
+                    android:id="@+id/secondary_options"
+                    android:checkableBehavior="single">
+                <item android:id="@+id/side_nav_overwatch"
+                    android:icon="@drawable/ic_overwatch_circle_logo"
+                    android:title="Overwatch"/>
+                <item
+                        android:id="@+id/side_nav_csgo"
+                        android:icon="@drawable/ic_counter_strike_logo"
+                        android:title="Cs Go" />
+                <item
+                        android:id="@+id/side_nav_league"
+                        android:icon="@drawable/ic_league_logo"
+                        android:title="League of Legends" />
+            </group>
+        </menu>
+    </item>
     <item
-            android:id="@+id/nav_overwatch"
-            android:icon="@drawable/ic_players_black_24dp"
-            android:title="First" />
-    <item
-            android:id="@+id/nav_csgo"
-            android:icon="@drawable/ic_results_black_24dp"
-            android:title="Second" />
-    <item
-            android:id="@+id/nav_league"
-            android:icon="@drawable/ic_train_black_24dp"
-            android:title="Third" />
+            android:id="@+id/logoutButton"
+            android:title="Logout"
+            android:icon="@drawable/ic_settings_power_black_24dp"
+            android:visible="false"
+            android:enabled="false"/>
 </menu>

@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.theveloper.stattrack.datamodel.Match
-import com.theveloper.stattrack.datamodel.Team
 
 class MatchesListAdapter(val matchesList: MutableList<Match>, val mContext: Context?): RecyclerView.Adapter<MatchesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchesViewHolder {
